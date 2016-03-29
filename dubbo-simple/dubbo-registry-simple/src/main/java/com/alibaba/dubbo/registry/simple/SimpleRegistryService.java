@@ -71,6 +71,9 @@ public class SimpleRegistryService extends AbstractRegistry {
         Set<URL> urls = remoteRegistered.get(client);
         if (urls == null) {
             urls = remoteRegistered.putIfAbsent(client, new ConcurrentHashSet<URL>());
+            if(urls == null) {
+            	urls = remoteRegistered.get(client);
+            }
         }
         urls.add(url);
         super.register(url);
