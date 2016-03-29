@@ -70,8 +70,7 @@ public class SimpleRegistryService extends AbstractRegistry {
         String client = RpcContext.getContext().getRemoteAddressString();
         Set<URL> urls = remoteRegistered.get(client);
         if (urls == null) {
-            remoteRegistered.putIfAbsent(client, new ConcurrentHashSet<URL>());
-            urls = remoteRegistered.get(client);
+            urls = remoteRegistered.putIfAbsent(client, new ConcurrentHashSet<URL>());
         }
         urls.add(url);
         super.register(url);
